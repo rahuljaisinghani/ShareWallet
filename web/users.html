@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <style>
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+        #customers tr:hover {background-color: #ddd;}
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body onload="UserAction()">
+
+<script type="text/javascript">
+    function UserAction() {
+        var url  = "http://localhost:8000/list_users/?wallet_id=04c8c71b-4b51-4c44-80a1-67d105d72f5b";
+        var xhttp  = new XMLHttpRequest()
+        xhttp.open('GET', url, true)
+        xhttp.onload = function () {
+            var users = JSON.parse(xhttp.responseText);
+            if (xhttp.readyState == 4 && xhttp.status == "200") {
+                console.table(users);
+                getTable(users)
+            } else {
+                console.table(users);
+                getTable(users)
+            }
+        }
+        xhttp.send(null);
+    }
+    function getTable(users)
+    {
+        var x="Name &nbsp; Joined on  &nbsp; Personal Amount  &nbsp; Bill Split Contribution &nbsp;<br><br>",i;
+        for (i = 0; i < users.length; i++)
+
+        {
+
+            x=x+users[i].name+" &nbsp; "+users[i].joined_on+" &nbsp; "+users[i].personal_amount+" &nbsp; "+users[i].group_contribution+" <br>"
+        }
+        document.getElementById("demo").innerHTML = x;
+    }
+</script>
+
+
+
+<div id="demo"></div>
+</body>
+</html>
